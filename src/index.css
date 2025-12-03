@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* SmartRide Watch - Dark Theme with Teal Accent */
+    --background: 220 20% 6%;
+    --foreground: 0 0% 98%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Teal accent */
+    --primary: 174 100% 37%;
+    --primary-foreground: 220 20% 6%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 174 100% 37%;
+    --accent-foreground: 220 20% 6%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 18%;
+    --ring: 174 100% 37%;
+
+    --radius: 1rem;
+
+    /* Custom tokens for smartwatch */
+    --watch-bg: 220 20% 8%;
+    --watch-bezel: 220 18% 15%;
+    --watch-glow: 174 100% 37%;
+    --eta-highlight: 174 100% 45%;
+    --progress-track: 220 15% 20%;
+    --progress-fill: 174 100% 37%;
+    --success: 160 84% 39%;
+    --success-foreground: 0 0% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 20% 6%;
+    --info: 200 80% 50%;
+    --info-foreground: 0 0% 98%;
+  }
+
+  .dark {
+    --background: 220 20% 6%;
+    --foreground: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'DM Sans', sans-serif;
+  }
+}
+
+@layer components {
+  /* Watch Frame */
+  .watch-frame {
+    @apply relative rounded-full overflow-hidden;
+    background: linear-gradient(145deg, hsl(var(--watch-bezel)), hsl(220 18% 8%));
+    box-shadow: 
+      0 0 0 4px hsl(220 15% 12%),
+      0 0 0 6px hsl(220 15% 8%),
+      0 20px 60px -10px rgba(0, 0, 0, 0.7),
+      inset 0 2px 4px rgba(255, 255, 255, 0.05);
+  }
+
+  .watch-screen {
+    @apply absolute inset-3 rounded-full overflow-hidden;
+    background: radial-gradient(ellipse at 30% 20%, hsl(220 20% 12%), hsl(var(--watch-bg)));
+  }
+
+  /* Circular Progress Ring */
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+
+  .progress-ring-track {
+    stroke: hsl(var(--progress-track));
+  }
+
+  .progress-ring-fill {
+    stroke: hsl(var(--progress-fill));
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+  }
+
+  /* Buttons */
+  .watch-btn-primary {
+    @apply relative px-6 py-3 rounded-full font-semibold text-sm transition-all duration-200;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(174 80% 30%));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.4);
+  }
+
+  .watch-btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 25px hsl(var(--primary) / 0.5);
+  }
+
+  .watch-btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .watch-btn-secondary {
+    @apply px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-200;
+    background: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .watch-btn-secondary:hover {
+    background: hsl(220 15% 20%);
+  }
+
+  .watch-btn-danger {
+    @apply px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-200;
+    background: linear-gradient(135deg, hsl(var(--destructive)), hsl(0 60% 40%));
+    color: hsl(var(--destructive-foreground));
+  }
+
+  /* Typography */
+  .watch-title {
+    @apply text-lg font-bold tracking-tight;
+    color: hsl(var(--foreground));
+  }
+
+  .watch-subtitle {
+    @apply text-xs font-medium;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .watch-eta {
+    @apply text-4xl font-bold tracking-tight;
+    color: hsl(var(--eta-highlight));
+    text-shadow: 0 0 30px hsl(var(--primary) / 0.5);
+  }
+
+  .watch-highlight {
+    @apply text-2xl font-bold;
+    color: hsl(var(--success));
+    text-shadow: 0 0 20px hsl(var(--success) / 0.4);
+  }
+
+  /* Location indicator */
+  .location-dot {
+    @apply w-2 h-2 rounded-full;
+    background: hsl(var(--primary));
+    box-shadow: 0 0 10px hsl(var(--primary));
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.2); }
+  }
+
+  /* Animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes countdown-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.4s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out forwards;
+  }
+
+  .animate-countdown {
+    animation: countdown-pulse 1s ease-in-out infinite;
+  }
+
+  /* Staggered animations */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+}
