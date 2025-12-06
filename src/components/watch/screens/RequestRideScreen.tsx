@@ -1,4 +1,4 @@
-import { MapPin, Navigation, Settings, History, Mic } from "lucide-react";
+import { MapPin, Navigation, Settings, History, Mic, ChevronRight } from "lucide-react";
 
 interface RequestRideScreenProps {
   onRequestRide: () => void;
@@ -18,65 +18,60 @@ const RequestRideScreen = ({
   destination = "CCIS Building"
 }: RequestRideScreenProps) => {
   return (
-    <div className="flex flex-col items-center justify-between h-full w-full animate-scale-in">
-      {/* Header - Icon chips for settings/history */}
-      <div className="flex items-center justify-between w-full">
+    <div className="flex flex-col items-center justify-between h-full w-full py-3 animate-scale-in">
+      {/* Header with settings and history */}
+      <div className="flex items-center justify-between w-full px-2">
         <button 
           onClick={onSettings}
-          className="wear-icon-chip"
+          className="w-9 h-9 rounded-full bg-secondary/50 flex items-center justify-center transition-all hover:bg-secondary"
           aria-label="Settings"
         >
           <Settings className="w-5 h-5 text-muted-foreground" />
         </button>
-        
-        {/* Current location status */}
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/30">
+        <div className="flex items-center gap-1.5">
           <div className="location-dot" />
-          <span className="wear-caption truncate max-w-[100px]">{pickup}</span>
+          <span className="text-[10px] text-muted-foreground truncate max-w-[120px] text-left">{pickup}</span>
         </div>
-        
         <button 
           onClick={onHistory}
-          className="wear-icon-chip"
+          className="w-9 h-9 rounded-full bg-secondary/50 flex items-center justify-center transition-all hover:bg-secondary"
           aria-label="Ride History"
         >
           <History className="w-5 h-5 text-muted-foreground" />
         </button>
       </div>
 
-      {/* Main action - Large circular chip */}
-      <div className="flex flex-col items-center gap-3">
+      {/* Main request button */}
+      <div className="flex flex-col items-center gap-2">
         <button 
           onClick={onRequestRide}
-          className="w-[120px] h-[120px] rounded-full flex flex-col items-center justify-center gap-2 transition-all duration-200 active:scale-95"
-          style={{
-            background: 'linear-gradient(135deg, hsl(174 100% 37%), hsl(174 80% 28%))',
-            boxShadow: '0 6px 24px hsl(174 100% 37% / 0.4)'
-          }}
+          className="watch-btn-primary w-28 h-28 rounded-full flex flex-col items-center justify-center gap-1.5"
           aria-label="Request a ride"
         >
-          <Navigation className="w-8 h-8 text-primary-foreground" />
-          <span className="wear-headline text-primary-foreground">Request</span>
+          <Navigation className="w-7 h-7" />
+          <span className="text-sm font-bold">Request</span>
+          <span className="text-sm font-bold -mt-1">Ride</span>
         </button>
         
-        {/* Voice command hint */}
-        <div className="flex items-center gap-2 opacity-70">
-          <Mic className="w-4 h-4 text-muted-foreground" />
-          <span className="wear-caption">"Hey Google, request ride"</span>
+        {/* Voice command hint - FR14 */}
+        <div className="flex items-center gap-1.5 opacity-80">
+          <Mic className="w-3.5 h-3.5 text-muted-foreground" />
+          <span className="text-[10px] text-muted-foreground">"Hey Google, request a ride"</span>
         </div>
       </div>
 
-      {/* Destination chip - Full width, 48dp touch target */}
-      <button 
-        onClick={onEditDestination}
-        className="wear-list-chip"
-        aria-label="Edit destination"
-      >
-        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+      {/* Destination - tap to edit */}
+      <div className="w-full px-3 space-y-1.5">
+        <button 
+          onClick={onEditDestination}
+          className="flex items-center gap-2 w-full bg-secondary/30 px-3 py-2 rounded-xl hover:bg-secondary/50 transition-all"
+          aria-label="Edit destination"
+        >
           <MapPin className="w-4 h-4 text-primary" />
-        </div>
-        <span className="wear-body flex-1 text-left truncate">{destination}</span>
-      </button>
+          <span className="text-[11px] text-foreground/90 flex-1 text-left truncate">{destination}</span>
+          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+        </button>
+      </div>
     </div>
   );
 };

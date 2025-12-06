@@ -1,4 +1,4 @@
-import { MapPin, Home, Building2, Clock, Plane, ShoppingBag } from "lucide-react";
+import { ChevronLeft, MapPin, Home, Building2, Clock, Plane, ShoppingBag } from "lucide-react";
 
 interface DestinationScreenProps {
   onBack: () => void;
@@ -26,69 +26,76 @@ const DestinationScreen = ({ onBack, onSelectDestination }: DestinationScreenPro
   ];
 
   const recentPlaces = [
-    { id: "airport", label: "Airport", address: "King Khalid Intl", icon: Plane },
-    { id: "mall", label: "Riyadh Park", address: "Northern Ring", icon: ShoppingBag },
+    { id: "airport", label: "Airport", address: "King Khalid International", icon: Plane },
+    { id: "mall", label: "Riyadh Park", address: "Northern Ring Road", icon: ShoppingBag },
   ];
 
   return (
-    <div className="flex flex-col h-full w-full animate-scale-in gap-2">
-      {/* Title */}
-      <div className="text-center">
-        <h2 className="wear-title">Where to?</h2>
+    <div className="flex flex-col items-center h-full w-full animate-scale-in">
+      {/* Header */}
+      <div className="flex items-center w-full px-2 pt-2 pb-2">
+        <button 
+          onClick={onBack}
+          className="w-8 h-8 rounded-full bg-secondary/50 flex items-center justify-center"
+          aria-label="Go back"
+        >
+          <ChevronLeft className="w-5 h-5 text-foreground" />
+        </button>
+        <span className="text-sm font-semibold text-foreground flex-1 text-center pr-8">Where to?</span>
       </div>
 
-      {/* Places list - Wear OS list chips */}
-      <div className="flex flex-col gap-2 flex-1 wear-scroll">
-        {/* Saved places */}
-        <p className="wear-caption uppercase tracking-wider">Saved</p>
+      {/* Places list */}
+      <div className="flex flex-col gap-1.5 w-full px-3 flex-1 overflow-y-auto">
+        {/* Saved */}
+        <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-1">Saved</p>
         {savedPlaces.map((place, index) => (
           <button
             key={place.id}
             onClick={() => onSelectDestination(place.address)}
-            className="wear-list-chip animate-fade-in-up"
+            className="flex items-center gap-2 w-full p-2 rounded-xl bg-secondary/40 hover:bg-secondary/60 transition-all animate-fade-in-up"
             style={{ animationDelay: `${index * 0.05}s` }}
             aria-label={`Go to ${place.label}`}
           >
-            <div className={`w-10 h-10 rounded-full ${place.bgColor} flex items-center justify-center shrink-0`}>
-              <place.icon className={`w-5 h-5 ${place.color}`} />
+            <div className={`w-8 h-8 rounded-full ${place.bgColor} flex items-center justify-center shrink-0`}>
+              <place.icon className={`w-4 h-4 ${place.color}`} />
             </div>
             <div className="flex flex-col items-start flex-1 min-w-0">
-              <span className="wear-body font-medium">{place.label}</span>
-              <span className="wear-caption truncate w-full text-left">{place.address}</span>
+              <span className="text-[11px] font-medium text-foreground">{place.label}</span>
+              <span className="text-[9px] text-muted-foreground truncate w-full text-left">{place.address}</span>
             </div>
           </button>
         ))}
 
-        {/* Recent places */}
-        <div className="flex items-center gap-1 mt-1">
-          <Clock className="w-3 h-3 text-muted-foreground" />
-          <p className="wear-caption uppercase tracking-wider">Recent</p>
-        </div>
+        {/* Recent */}
+        <p className="text-[9px] text-muted-foreground uppercase tracking-wider mt-2 mb-1 flex items-center gap-1">
+          <Clock className="w-3 h-3" /> Recent
+        </p>
         {recentPlaces.map((place, index) => (
           <button
             key={place.id}
             onClick={() => onSelectDestination(place.address)}
-            className="wear-list-chip animate-fade-in-up"
+            className="flex items-center gap-2 w-full p-2 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-all animate-fade-in-up"
             style={{ animationDelay: `${(index + 2) * 0.05}s` }}
             aria-label={`Go to ${place.label}`}
           >
-            <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center shrink-0">
-              <place.icon className="w-5 h-5 text-muted-foreground" />
+            <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center shrink-0">
+              <place.icon className="w-4 h-4 text-muted-foreground" />
             </div>
             <div className="flex flex-col items-start flex-1 min-w-0">
-              <span className="wear-body font-medium">{place.label}</span>
-              <span className="wear-caption truncate w-full text-left">{place.address}</span>
+              <span className="text-[11px] font-medium text-foreground">{place.label}</span>
+              <span className="text-[9px] text-muted-foreground truncate w-full text-left">{place.address}</span>
             </div>
           </button>
         ))}
       </div>
 
-      {/* Cancel chip */}
-      <button onClick={onBack} className="wear-chip-secondary">
-        Cancel
-      </button>
+      {/* Hint */}
+      <div className="pb-3">
+        <span className="text-[9px] text-muted-foreground">Edit on phone for more options</span>
+      </div>
     </div>
   );
 };
 
 export default DestinationScreen;
+

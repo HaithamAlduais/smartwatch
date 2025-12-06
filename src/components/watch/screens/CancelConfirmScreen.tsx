@@ -7,33 +7,35 @@ interface CancelConfirmScreenProps {
 
 const CancelConfirmScreen = ({ onConfirm, onBack }: CancelConfirmScreenProps) => {
   return (
-    <div className="flex flex-col items-center justify-between h-full w-full animate-scale-in">
+    <div className="flex flex-col items-center justify-center h-full text-center">
       {/* Warning icon */}
-      <div className="w-16 h-16 rounded-full bg-destructive/20 flex items-center justify-center">
-        <AlertTriangle className="w-8 h-8 text-destructive" />
+      <div className="w-14 h-14 rounded-full bg-destructive/20 flex items-center justify-center mb-3 animate-scale-in">
+        <AlertTriangle className="w-7 h-7 text-destructive" />
       </div>
 
-      {/* Confirmation text */}
-      <div className="text-center">
-        <h2 className="wear-title">Cancel Ride?</h2>
-        <p className="wear-caption mt-2 max-w-[180px]">
-          Your driver may already be on the way
-        </p>
-      </div>
+      {/* Title */}
+      <h2 className="watch-title mb-2 opacity-0 animate-fade-in-up stagger-1">
+        Cancel Ride?
+      </h2>
 
-      {/* Action chips - stacked, full width */}
-      <div className="flex flex-col gap-2 w-full">
+      {/* Warning text */}
+      <p className="text-[10px] text-muted-foreground max-w-[160px] mb-5 opacity-0 animate-fade-in-up stagger-2">
+        Your driver may be on the way.
+      </p>
+
+      {/* Buttons */}
+      <div className="flex flex-col gap-2 w-full max-w-[140px]">
         <button 
           onClick={onConfirm}
-          className="wear-chip-danger"
+          className="watch-btn-danger w-full opacity-0 animate-slide-up stagger-3"
         >
           Yes, Cancel
         </button>
         <button 
           onClick={onBack}
-          className="wear-chip-secondary"
+          className="watch-btn-secondary w-full opacity-0 animate-slide-up stagger-4"
         >
-          Keep Ride
+          Back
         </button>
       </div>
     </div>
