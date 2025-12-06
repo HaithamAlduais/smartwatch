@@ -12,16 +12,13 @@ import CancelConfirmScreen from "./watch/screens/CancelConfirmScreen";
 import RideCompletedScreen from "./watch/screens/RideCompletedScreen";
 import SettingsScreen from "./watch/screens/SettingsScreen";
 import HistoryScreen from "./watch/screens/HistoryScreen";
-import RatingScreen from "./watch/screens/RatingScreen";
 import NoDriversScreen from "./watch/screens/NoDriversScreen";
-import SOSScreen from "./watch/screens/SOSScreen";
 import HelpScreen from "./watch/screens/HelpScreen";
-import ScheduleScreen from "./watch/screens/ScheduleScreen";
 import ProfileScreen from "./watch/screens/ProfileScreen";
 import NotificationsScreen from "./watch/screens/NotificationsScreen";
 import DriverCallingScreen from "./watch/screens/DriverCallingScreen";
 import { toast } from "@/hooks/use-toast";
-import { mockDriver, mockTrip, DriverInfo, TripInfo } from "@/types/driver";
+import { mockDriver, DriverInfo } from "@/types/driver";
 
 type Screen = 
   | "request" 
@@ -34,13 +31,10 @@ type Screen =
   | "inProgress" 
   | "cancelConfirm" 
   | "completed" 
-  | "rating" 
   | "settings" 
   | "history" 
   | "noDrivers" 
-  | "sos" 
   | "help" 
-  | "schedule"
   | "profile"
   | "notifications"
   | "driverCalling";
@@ -53,13 +47,11 @@ const SmartWatchApp = () => {
   const [rideProgress, setRideProgress] = useState(0);
   const [remainingTime, setRemainingTime] = useState(12);
   const [previousScreen, setPreviousScreen] = useState<Screen>("request");
-  
+
   // Trip state
   const [pickup, setPickup] = useState("King Saud University");
   const [destination, setDestination] = useState("CCIS Building");
-  const [selectedCarType, setSelectedCarType] = useState<string>("economy");
   const [driver] = useState<DriverInfo>(mockDriver);
-  const [tripInfo, setTripInfo] = useState<TripInfo>(mockTrip);
 
   // Driver matching simulation
   useEffect(() => {
@@ -112,7 +104,7 @@ const SmartWatchApp = () => {
         setRideProgress((prev) => {
           if (prev >= 100) { 
             clearInterval(interval); 
-            setTimeout(() => setCurrentScreen("rating"), 500); 
+            setTimeout(() => setCurrentScreen("completed"), 500); 
             return 100; 
           }
           return prev + 1;
@@ -126,22 +118,16 @@ const SmartWatchApp = () => {
   // Handlers
   const handleRequestRide = () => setCurrentScreen("carType");
   const handleSelectCarType = (type: string) => {
-    setSelectedCarType(type);
-    // Update trip info with selected car type
-    const prices: Record<string, string> = { economy: "15 SAR", comfort: "22 SAR", premium: "35 SAR" };
-    setTripInfo(prev => ({ ...prev, carType: type as TripInfo["carType"], estimatedFare: prices[type] }));
     setCurrentScreen("matching");
     toast({ title: "Finding driver...", description: `Looking for nearest ${type} driver` });
   };
   const handleSelectPickup = (location: string) => {
     setPickup(location);
-    setTripInfo(prev => ({ ...prev, pickup: location }));
     setCurrentScreen("request");
     toast({ title: "Pickup updated", description: location });
   };
   const handleSelectDestination = (dest: string) => {
     setDestination(dest);
-    setTripInfo(prev => ({ ...prev, destination: dest }));
     setCurrentScreen("request");
     toast({ title: "Destination set", description: dest });
   };
@@ -151,12 +137,6 @@ const SmartWatchApp = () => {
   const handleBackToRequest = () => setCurrentScreen("request");
   const handleShare = () => toast({ title: "Trip shared", description: "Your trip details have been shared" });
   const handleNewRide = () => setCurrentScreen("request");
-  const handleRatingSubmit = (rating: number) => { 
-    toast({ title: "Thank you!", description: `You rated ${driver.name} ${rating} stars` }); 
-    setCurrentScreen("request"); 
-  };
-  const handleEmergencyCall = () => toast({ title: "Emergency services contacted", description: "Help is on the way", variant: "destructive" });
-  const handleSchedule = (time: string) => { toast({ title: "Ride scheduled", description: `Your ride is scheduled for ${time}` }); setCurrentScreen("request"); };
   const handleContactDriver = () => setCurrentScreen("driverCalling");
   const handleAcceptCall = () => { toast({ title: "Call connected", description: "Redirecting to phone..." }); setCurrentScreen("tracking"); };
   const handleDeclineCall = () => { toast({ title: "Call declined" }); setCurrentScreen("tracking"); };
@@ -219,8 +199,6 @@ const SmartWatchApp = () => {
         return <CancelConfirmScreen onConfirm={handleConfirmCancel} onBack={handleBack} />;
       case "completed": 
         return <RideCompletedScreen onNewRide={handleNewRide} />;
-      case "rating": 
-        return <RatingScreen driverName={driver.name} onSubmit={handleRatingSubmit} onSkip={handleNewRide} tripInfo={tripInfo} />;
       case "settings": 
         return (
           <SettingsScreen 
@@ -233,13 +211,9 @@ const SmartWatchApp = () => {
       case "history": 
         return <HistoryScreen onBack={handleBackToRequest} />;
       case "noDrivers": 
-        return <NoDriversScreen onRetry={handleRequestRide} onSchedule={() => setCurrentScreen("schedule")} />;
-      case "sos": 
-        return <SOSScreen onBack={handleBackToRequest} onEmergencyCall={handleEmergencyCall} />;
+        return <NoDriversScreen onRetry={handleRequestRide} />;
       case "help": 
         return <HelpScreen onBack={() => setCurrentScreen("settings")} />;
-      case "schedule": 
-        return <ScheduleScreen onBack={handleBackToRequest} onSchedule={handleSchedule} />;
       case "profile":
         return <ProfileScreen onBack={() => setCurrentScreen("settings")} />;
       case "notifications":
@@ -262,20 +236,17 @@ const SmartWatchApp = () => {
     inProgress: "In Ride", 
     cancelConfirm: "Cancel", 
     completed: "Done", 
-    rating: "Rate", 
     settings: "Settings", 
     history: "History", 
     noDrivers: "No Drivers", 
-    sos: "SOS", 
     help: "Help", 
-    schedule: "Schedule",
     profile: "Profile",
     notifications: "Alerts",
     driverCalling: "Calling"
   };
   
-  const mainScreens: Screen[] = ["request", "carType", "destination", "matching", "tracking", "arriving", "inProgress", "rating"];
-  const utilityScreens: Screen[] = ["settings", "profile", "notifications", "history", "schedule", "sos"];
+  const mainScreens: Screen[] = ["request", "carType", "destination", "matching", "tracking", "arriving", "inProgress", "completed"];
+  const utilityScreens: Screen[] = ["settings", "profile", "notifications", "history"];
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
@@ -315,10 +286,10 @@ const SmartWatchApp = () => {
       
       <div className="mt-4 text-center">
         <p className="text-xs text-muted-foreground max-w-md">
-          Navigate through {Object.keys(screenLabels).length} screens demonstrating all functional requirements (FR1-FR14)
+          Navigate through {Object.keys(screenLabels).length} screens in the ride flow
         </p>
         <p className="text-[10px] text-muted-foreground mt-1">
-          Flow: Request → Car Type → Matching → Tracking → Arriving → In Progress → Rating
+          Flow: Request → Car Type → Matching → Tracking → Arriving → In Progress → Completed
         </p>
       </div>
     </div>

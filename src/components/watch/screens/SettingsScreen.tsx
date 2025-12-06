@@ -1,4 +1,4 @@
-import { ChevronLeft, User, Bell, Phone, Shield, HelpCircle, CreditCard } from "lucide-react";
+import { ChevronLeft, User, Bell, HelpCircle, CreditCard } from "lucide-react";
 
 interface SettingsScreenProps {
   onBack: () => void;
@@ -16,8 +16,6 @@ const SettingsScreen = ({ onBack, onHelp, onProfile, onNotifications }: Settings
     { icon: User, label: "Profile", color: "text-primary", action: onProfile },
     { icon: Bell, label: "Notifications", color: "text-warning", action: onNotifications },
     { icon: CreditCard, label: "Payment", color: "text-success", action: undefined },
-    { icon: Phone, label: "Emergency", color: "text-destructive", action: undefined },
-    { icon: Shield, label: "Safety", color: "text-info", action: undefined },
   ];
 
   return (

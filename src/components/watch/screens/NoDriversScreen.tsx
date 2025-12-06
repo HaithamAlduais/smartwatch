@@ -1,14 +1,13 @@
-import { AlertCircle, RefreshCw, Clock } from "lucide-react";
+import { AlertCircle, RefreshCw } from "lucide-react";
 
 interface NoDriversScreenProps {
   onRetry: () => void;
-  onSchedule: () => void;
 }
 
 // Heuristic 9: Help users recognize, diagnose, recover from errors
 // Heuristic 5: Error prevention - Offer alternatives
 
-const NoDriversScreen = ({ onRetry, onSchedule }: NoDriversScreenProps) => {
+const NoDriversScreen = ({ onRetry }: NoDriversScreenProps) => {
   return (
     <div className="flex flex-col items-center justify-between h-full w-full py-5 animate-scale-in">
       {/* Error icon and message */}
@@ -28,17 +27,10 @@ const NoDriversScreen = ({ onRetry, onSchedule }: NoDriversScreenProps) => {
         <div className="flex gap-2 w-full justify-center">
           <button 
             onClick={onRetry}
-            className="watch-btn-primary flex items-center gap-1.5 px-4 py-2"
+            className="watch-btn-primary flex items-center gap-1.5 px-5 py-2.5 text-sm"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span className="text-xs">Retry</span>
-          </button>
-          <button 
-            onClick={onSchedule}
-            className="watch-btn-secondary flex items-center gap-1.5 px-4 py-2"
-          >
-            <Clock className="w-3.5 h-3.5" />
-            <span className="text-xs">Schedule</span>
+            <RefreshCw className="w-4 h-4" />
+            <span className="text-sm">Retry</span>
           </button>
         </div>
       </div>
