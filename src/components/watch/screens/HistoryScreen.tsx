@@ -9,9 +9,9 @@ interface HistoryScreenProps {
 
 const HistoryScreen = ({ onBack }: HistoryScreenProps) => {
   const rides = [
-    { destination: "Airport", time: "2h ago", rating: 5 },
-    { destination: "Mall", time: "Yesterday", rating: 4 },
-    { destination: "Home", time: "2 days ago", rating: 5 },
+    { destination: "Airport", time: "2h ago" },
+    { destination: "Mall", time: "Yesterday" },
+    { destination: "Home", time: "2 days ago" },
   ];
 
   return (
@@ -45,10 +45,6 @@ const HistoryScreen = ({ onBack }: HistoryScreenProps) => {
                 <Clock className="w-3 h-3 text-muted-foreground" />
                 <span className="text-[10px] text-muted-foreground">{ride.time}</span>
               </div>
-            </div>
-            <div className="flex items-center gap-0.5">
-              <Star className="w-3 h-3 text-warning fill-warning" />
-              <span className="text-[10px] text-foreground">{ride.rating}</span>
             </div>
           </button>
         ))}

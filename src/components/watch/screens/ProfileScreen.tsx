@@ -1,4 +1,4 @@
-import { ChevronLeft, User, CreditCard, MapPin, Star, Smartphone } from "lucide-react";
+import { ChevronLeft, User, CreditCard, MapPin, Smartphone } from "lucide-react";
 
 interface ProfileScreenProps {
   onBack: () => void;
@@ -9,8 +9,6 @@ const ProfileScreen = ({ onBack }: ProfileScreenProps) => {
     name: "Mohammed A.",
     email: "m.alyousef@ksu.edu.sa",
     phone: "+966 5X XXX XXXX",
-    rating: 4.9,
-    totalRides: 47
   };
 
   const paymentMethods = [
@@ -46,10 +44,7 @@ const ProfileScreen = ({ onBack }: ProfileScreenProps) => {
           </div>
           <div className="flex flex-col items-start flex-1 min-w-0">
             <span className="text-xs font-semibold text-foreground">{userInfo.name}</span>
-            <div className="flex items-center gap-1">
-              <Star className="w-3 h-3 text-warning fill-warning" />
-              <span className="text-[10px] text-muted-foreground">{userInfo.rating} • {userInfo.totalRides} rides</span>
-            </div>
+            <span className="text-[10px] text-muted-foreground truncate">{userInfo.email}</span>
           </div>
         </div>
 

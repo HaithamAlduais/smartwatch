@@ -1,4 +1,4 @@
-import { CheckCircle, Star } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 interface RideCompletedScreenProps {
   onNewRide: () => void;
@@ -20,20 +20,10 @@ const RideCompletedScreen = ({ onNewRide }: RideCompletedScreenProps) => {
         You've reached your destination
       </p>
 
-      {/* Rating */}
-      <div className="flex gap-1 mb-4 opacity-0 animate-fade-in-up stagger-3">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Star 
-            key={star} 
-            className="w-5 h-5 text-warning fill-warning cursor-pointer hover:scale-110 transition-transform" 
-          />
-        ))}
-      </div>
-
       {/* New ride button */}
       <button 
         onClick={onNewRide}
-        className="watch-btn-primary text-xs opacity-0 animate-slide-up stagger-4"
+        className="watch-btn-primary text-xs opacity-0 animate-slide-up stagger-3"
       >
         New Ride
       </button>
