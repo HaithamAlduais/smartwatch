@@ -14,37 +14,39 @@ const RideInProgressScreen = ({
   onShare 
 }: RideInProgressScreenProps) => {
   return (
-    <div className="flex flex-col items-center justify-center h-full text-center">
-      {/* Header */}
-      <p className="text-xs text-primary font-medium mb-3 opacity-0 animate-fade-in-up">
-        Ride in Progress
-      </p>
+    <div className="flex flex-col items-center justify-between h-full w-full animate-scale-in">
+      {/* Status */}
+      <p className="wear-label text-primary font-medium">Ride in Progress</p>
 
-      {/* ETA */}
-      <div className="mb-4 animate-scale-in">
-        <span className="watch-eta">{remainingTime}</span>
-        <span className="text-sm text-muted-foreground ml-1">min</span>
-        <p className="text-[10px] text-muted-foreground mt-1">to destination</p>
+      {/* ETA display */}
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex items-baseline gap-1 animate-countdown">
+          <span className="wear-eta">{remainingTime}</span>
+          <span className="wear-label">min</span>
+        </div>
+        <p className="wear-caption">to destination</p>
+        
+        {/* Progress bar */}
+        <div className="w-44 h-2 bg-secondary rounded-full overflow-hidden mt-2">
+          <div 
+            className="h-full bg-primary rounded-full transition-all duration-500"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
 
-      {/* Progress bar */}
-      <div className="w-40 h-1.5 bg-secondary rounded-full overflow-hidden mb-4 opacity-0 animate-fade-in-up stagger-2">
-        <div 
-          className="h-full bg-primary rounded-full transition-all duration-500"
-          style={{ width: `${progress}%` }}
-        />
+      {/* Destination card */}
+      <div className="wear-card flex items-center gap-3">
+        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+          <MapPin className="w-4 h-4 text-primary" />
+        </div>
+        <span className="wear-body flex-1 truncate">{destination}</span>
       </div>
 
-      {/* Destination */}
-      <div className="flex items-center gap-1.5 mb-4 opacity-0 animate-fade-in-up stagger-3">
-        <MapPin className="w-3 h-3 text-primary" />
-        <span className="text-xs text-muted-foreground">{destination}</span>
-      </div>
-
-      {/* Share button */}
+      {/* Share chip */}
       <button 
         onClick={onShare}
-        className="watch-btn-primary flex items-center gap-2 text-xs opacity-0 animate-slide-up stagger-4"
+        className="wear-chip-secondary"
       >
         <Share2 className="w-4 h-4" />
         Share Trip
