@@ -14,29 +14,37 @@ const RideInProgressScreen = ({
   onShare 
 }: RideInProgressScreenProps) => {
   return (
-    <div className="flex flex-col h-full w-full px-4 py-4 gap-4 text-center">
-      <div className="watch-card flex-col items-center gap-2 bg-secondary/30">
-        <p className="text-xs text-primary font-medium">Ride in Progress</p>
-        <div className="flex items-baseline gap-1 animate-countdown">
-          <span className="watch-eta text-4xl">{remainingTime}</span>
-          <span className="text-sm text-muted-foreground">min</span>
-        </div>
-        <p className="text-xs text-muted-foreground">to destination</p>
-        <div className="w-full h-2 bg-secondary rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-primary rounded-full transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
-          <MapPin className="w-4 h-4 text-primary" />
-          <span>{destination}</span>
-        </div>
+    <div className="flex flex-col items-center justify-center h-full text-center">
+      {/* Header */}
+      <p className="text-xs text-primary font-medium mb-3 opacity-0 animate-fade-in-up">
+        Ride in Progress
+      </p>
+
+      {/* ETA */}
+      <div className="mb-4 animate-scale-in">
+        <span className="watch-eta">{remainingTime}</span>
+        <span className="text-sm text-muted-foreground ml-1">min</span>
+        <p className="text-[10px] text-muted-foreground mt-1">to destination</p>
       </div>
 
+      {/* Progress bar */}
+      <div className="w-40 h-1.5 bg-secondary rounded-full overflow-hidden mb-4 opacity-0 animate-fade-in-up stagger-2">
+        <div 
+          className="h-full bg-primary rounded-full transition-all duration-500"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+
+      {/* Destination */}
+      <div className="flex items-center gap-1.5 mb-4 opacity-0 animate-fade-in-up stagger-3">
+        <MapPin className="w-3 h-3 text-primary" />
+        <span className="text-xs text-muted-foreground">{destination}</span>
+      </div>
+
+      {/* Share button */}
       <button 
         onClick={onShare}
-        className="watch-secondary"
+        className="watch-btn-primary flex items-center gap-2 text-xs opacity-0 animate-slide-up stagger-4"
       >
         <Share2 className="w-4 h-4" />
         Share Trip
