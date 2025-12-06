@@ -71,19 +71,36 @@
 }
 
 @layer components {
+  /* watchOS-like cards and buttons */
+  .watch-card {
+    @apply w-full rounded-3xl bg-secondary/40 px-4 py-3 flex items-center justify-between gap-3;
+  }
+
+  .watch-primary {
+    @apply w-full rounded-2xl bg-primary text-primary-foreground font-semibold text-base py-3 flex items-center justify-center gap-2;
+  }
+
+  .watch-secondary {
+    @apply w-full rounded-2xl bg-secondary text-secondary-foreground font-semibold text-base py-3 flex items-center justify-center gap-2 border border-border;
+  }
+
+  .watch-ghost {
+    @apply w-full rounded-2xl text-foreground font-medium text-sm py-2 flex items-center justify-center gap-2;
+  }
+
   /* Watch Frame */
   .watch-frame {
     @apply relative rounded-full overflow-hidden;
     background: linear-gradient(145deg, hsl(var(--watch-bezel)), hsl(220 18% 8%));
     box-shadow: 
-      0 0 0 4px hsl(220 15% 12%),
-      0 0 0 6px hsl(220 15% 8%),
-      0 20px 60px -10px rgba(0, 0, 0, 0.7),
-      inset 0 2px 4px rgba(255, 255, 255, 0.05);
+      0 0 0 3px hsl(220 15% 12%),
+      0 0 0 5px hsl(220 15% 8%),
+      0 18px 50px -12px rgba(0, 0, 0, 0.7),
+      inset 0 2px 4px rgba(255, 255, 255, 0.04);
   }
 
   .watch-screen {
-    @apply absolute inset-3 rounded-full overflow-hidden;
+    @apply absolute inset-2.5 rounded-full overflow-hidden;
     background: radial-gradient(ellipse at 30% 20%, hsl(220 20% 12%), hsl(var(--watch-bg)));
   }
 

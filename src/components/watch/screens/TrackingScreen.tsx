@@ -20,60 +20,40 @@ const TrackingScreen = ({
   driver = { id: "1", name: "Ahmed K.", rating: 4.8, carModel: "Toyota Camry", carColor: "White", plateNumber: "ABC 1234" }
 }: TrackingScreenProps) => {
   return (
-    <div className="flex flex-col items-center justify-center h-full text-center">
-      {/* Header */}
-      <p className="text-xs text-muted-foreground mb-2 opacity-0 animate-fade-in-up">
-        Driver on the way
-      </p>
-
-      <CircularProgress progress={progress} size={160}>
-        <div className="flex flex-col items-center gap-1 animate-scale-in">
-          {/* Direction indicator */}
-          <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center mb-1">
-            <Navigation className="w-4 h-4 text-primary animate-pulse" />
-          </div>
-          
-          {/* ETA countdown */}
-          <div className="animate-countdown">
-            <span className="watch-eta text-3xl">{eta}</span>
-            <span className="text-xs text-muted-foreground ml-1">min</span>
-          </div>
-
-          {/* Distance */}
-          <div className="flex items-center gap-1">
-            <MapPin className="w-3 h-3 text-muted-foreground" />
-            <span className="text-[10px] text-muted-foreground">{distance}</span>
-          </div>
+    <div className="flex flex-col h-full w-full px-4 py-4 gap-3 text-center">
+      <div className="watch-card flex-col items-center gap-2 bg-secondary/30">
+        <div className="w-11 h-11 rounded-2xl bg-primary/15 flex items-center justify-center">
+          <Navigation className="w-5 h-5 text-primary animate-pulse" />
         </div>
-      </CircularProgress>
+        <p className="text-sm text-muted-foreground">Driver on the way</p>
+        <div className="flex items-baseline gap-1 animate-countdown">
+          <span className="watch-eta text-4xl">{eta}</span>
+          <span className="text-sm text-muted-foreground">min</span>
+        </div>
+        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <MapPin className="w-4 h-4" />
+          <span>{distance}</span>
+        </div>
+      </div>
 
-      {/* Driver info strip with contact button */}
-      <div className="mt-2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/50 opacity-0 animate-slide-up stagger-2">
-        {/* Driver photo placeholder */}
-        <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
-          <User className="w-3 h-3 text-muted-foreground" />
+      <div className="watch-card items-center gap-3">
+        <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
+          <User className="w-4 h-4 text-muted-foreground" />
         </div>
-        <div className="flex flex-col items-start">
-          <span className="text-[10px] font-medium">{driver.name}</span>
-          <span className="text-[8px] text-primary font-mono">{driver.plateNumber}</span>
+        <div className="flex flex-col items-start flex-1 min-w-0">
+          <span className="text-sm font-medium">{driver.name}</span>
+          <span className="text-[11px] text-primary font-mono">{driver.plateNumber}</span>
         </div>
-        {/* Contact driver button - FR13 */}
         <button 
           onClick={onContactDriver}
-          className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center ml-1 hover:bg-primary/30 transition-colors"
+          className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center"
           aria-label="Contact driver"
         >
-          <Phone className="w-3.5 h-3.5 text-primary" />
+          <Phone className="w-4 h-4 text-primary" />
         </button>
       </div>
 
-      {/* Cancel link */}
-      <button 
-        onClick={onCancel}
-        className="text-[10px] text-muted-foreground mt-2 underline opacity-0 animate-fade-in-up stagger-3"
-      >
-        Cancel ride
-      </button>
+      <button onClick={onCancel} className="watch-secondary">Cancel Ride</button>
     </div>
   );
 };

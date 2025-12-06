@@ -6,32 +6,23 @@ interface ArrivingScreenProps {
 
 const ArrivingScreen = ({ onContinue }: ArrivingScreenProps) => {
   return (
-    <div className="flex flex-col items-center justify-center h-full text-center">
-      {/* Arriving highlight */}
-      <div className="animate-scale-in">
-        <div className="w-20 h-20 rounded-full bg-success/20 flex items-center justify-center mb-4 mx-auto">
-          <Car className="w-10 h-10 text-success" />
+    <div className="flex flex-col h-full w-full px-4 py-4 gap-4 text-center">
+      <div className="watch-card flex-col items-center gap-3 bg-secondary/30">
+        <div className="w-16 h-16 rounded-2xl bg-success/15 flex items-center justify-center">
+          <Car className="w-9 h-9 text-success" />
         </div>
-        
-        <h2 className="watch-highlight mb-2">Arriving Now</h2>
+        <h2 className="watch-highlight mb-0">Arriving Soon</h2>
+        <div className="space-y-0.5">
+          <p className="text-base font-semibold text-foreground">Ahmed K.</p>
+          <p className="text-sm text-muted-foreground">Toyota Camry • White</p>
+          <p className="text-sm font-mono text-primary">ABC 1234</p>
+        </div>
+        <p className="text-xs text-muted-foreground">Look for your driver outside</p>
       </div>
 
-      {/* Driver details */}
-      <div className="space-y-1 opacity-0 animate-fade-in-up stagger-2">
-        <p className="text-sm font-semibold text-foreground">Ahmed K.</p>
-        <p className="text-xs text-muted-foreground">Toyota Camry • White</p>
-        <p className="text-sm font-mono text-primary">ABC 1234</p>
-      </div>
-
-      {/* Action hint */}
-      <p className="text-[10px] text-muted-foreground mt-4 opacity-0 animate-fade-in-up stagger-3">
-        Look for your driver outside
-      </p>
-
-      {/* Tap to continue (for demo) */}
       <button 
         onClick={onContinue}
-        className="watch-btn-secondary mt-4 text-xs opacity-0 animate-slide-up stagger-4"
+        className="watch-primary"
       >
         Start Ride
       </button>
