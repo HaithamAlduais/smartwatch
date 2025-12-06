@@ -1,4 +1,4 @@
-import { Navigation, MapPin, Phone, User } from "lucide-react";
+import { Navigation, Phone } from "lucide-react";
 import CircularProgress from "../CircularProgress";
 import { DriverInfo } from "@/types/driver";
 
@@ -21,59 +21,38 @@ const TrackingScreen = ({
 }: TrackingScreenProps) => {
   return (
     <div className="flex flex-col items-center justify-center h-full text-center">
-      {/* Header */}
-      <p className="text-xs text-muted-foreground mb-2 opacity-0 animate-fade-in-up">
-        Driver on the way
-      </p>
-
-      <CircularProgress progress={progress} size={160}>
-        <div className="flex flex-col items-center gap-1 animate-scale-in">
-          {/* Direction indicator */}
-          <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center mb-1">
-            <Navigation className="w-4 h-4 text-primary animate-pulse" />
+      <CircularProgress progress={progress} size={220}>
+        <div className="flex flex-col items-center justify-center gap-2 animate-scale-in">
+          <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center">
+            <Navigation className="w-6 h-6 text-primary animate-pulse" />
           </div>
-          
-          {/* ETA countdown */}
-          <div className="animate-countdown">
-            <span className="watch-eta text-3xl">{eta}</span>
-            <span className="text-xs text-muted-foreground ml-1">min</span>
-          </div>
+          <p className="text-sm font-semibold text-foreground">{driver.name}</p>
+          <p className="text-[11px] text-muted-foreground">{driver.carModel}</p>
+          <p className="text-[12px] font-mono text-primary">{driver.plateNumber}</p>
 
-          {/* Distance */}
-          <div className="flex items-center gap-1">
-            <MapPin className="w-3 h-3 text-muted-foreground" />
-            <span className="text-[10px] text-muted-foreground">{distance}</span>
+          <div className="flex flex-col items-center gap-1 mt-1">
+            <span className="watch-eta text-4xl animate-countdown">{eta}</span>
+            <span className="text-sm text-muted-foreground">min away</span>
+            <span className="text-[11px] text-muted-foreground">{distance}</span>
           </div>
         </div>
       </CircularProgress>
 
-      {/* Driver info strip with contact button */}
-      <div className="mt-2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/50 opacity-0 animate-slide-up stagger-2">
-        {/* Driver photo placeholder */}
-        <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
-          <User className="w-3 h-3 text-muted-foreground" />
-        </div>
-        <div className="flex flex-col items-start">
-          <span className="text-[10px] font-medium">{driver.name}</span>
-          <span className="text-[8px] text-primary font-mono">{driver.plateNumber}</span>
-        </div>
-        {/* Contact driver button - FR13 */}
+      <div className="mt-4 flex items-center gap-2">
         <button 
           onClick={onContactDriver}
-          className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center ml-1 hover:bg-primary/30 transition-colors"
-          aria-label="Contact driver"
+          className="watch-btn-secondary flex items-center gap-2 text-xs px-4 py-2"
         >
-          <Phone className="w-3.5 h-3.5 text-primary" />
+          <Phone className="w-4 h-4" />
+          Call Driver
+        </button>
+        <button 
+          onClick={onCancel}
+          className="text-[11px] text-muted-foreground underline"
+        >
+          Cancel ride
         </button>
       </div>
-
-      {/* Cancel link */}
-      <button 
-        onClick={onCancel}
-        className="text-[10px] text-muted-foreground mt-2 underline opacity-0 animate-fade-in-up stagger-3"
-      >
-        Cancel ride
-      </button>
     </div>
   );
 };
