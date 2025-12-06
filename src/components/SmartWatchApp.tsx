@@ -168,7 +168,6 @@ const SmartWatchApp = () => {
         return (
           <TrackingScreen 
             eta={Math.ceil(eta)} 
-            distance={getDistanceText()} 
             onCancel={handleCancel} 
             onContactDriver={handleContactDriver}
             progress={trackingProgress}
