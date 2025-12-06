@@ -4,7 +4,6 @@ interface RequestRideScreenProps {
   onRequestRide: () => void;
   onSettings?: () => void;
   onHistory?: () => void;
-  onEditPickup?: () => void;
   onEditDestination?: () => void;
   pickup?: string;
   destination?: string;
@@ -14,7 +13,6 @@ const RequestRideScreen = ({
   onRequestRide, 
   onSettings, 
   onHistory,
-  onEditPickup,
   onEditDestination,
   pickup = "King Saud University",
   destination = "CCIS Building"
@@ -32,7 +30,7 @@ const RequestRideScreen = ({
         </button>
         <div className="flex items-center gap-1.5">
           <div className="location-dot" />
-          <span className="text-[10px] text-muted-foreground">GPS Active</span>
+          <span className="text-[10px] text-muted-foreground truncate max-w-[120px] text-left">{pickup}</span>
         </div>
         <button 
           onClick={onHistory}
@@ -62,28 +60,16 @@ const RequestRideScreen = ({
         </div>
       </div>
 
-      {/* Pickup and destination - tap to edit */}
+      {/* Destination - tap to edit */}
       <div className="w-full px-3 space-y-1.5">
-        {/* Pickup location */}
-        <button 
-          onClick={onEditPickup}
-          className="flex items-center gap-2 w-full bg-secondary/30 px-3 py-2 rounded-xl hover:bg-secondary/50 transition-all"
-          aria-label="Edit pickup location"
-        >
-          <div className="w-2 h-2 rounded-full bg-primary" />
-          <span className="text-[10px] text-foreground/80 flex-1 text-left truncate">{pickup}</span>
-          <ChevronRight className="w-3 h-3 text-muted-foreground" />
-        </button>
-        
-        {/* Destination */}
         <button 
           onClick={onEditDestination}
           className="flex items-center gap-2 w-full bg-secondary/30 px-3 py-2 rounded-xl hover:bg-secondary/50 transition-all"
           aria-label="Edit destination"
         >
-        <MapPin className="w-3 h-3 text-primary" />
-          <span className="text-[10px] text-foreground/80 flex-1 text-left truncate">{destination}</span>
-          <ChevronRight className="w-3 h-3 text-muted-foreground" />
+          <MapPin className="w-4 h-4 text-primary" />
+          <span className="text-[11px] text-foreground/90 flex-1 text-left truncate">{destination}</span>
+          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
         </button>
       </div>
     </div>

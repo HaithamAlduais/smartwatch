@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import WatchFrame from "./watch/WatchFrame";
 import RequestRideScreen from "./watch/screens/RequestRideScreen";
 import CarTypeScreen from "./watch/screens/CarTypeScreen";
-import PickupEditorScreen from "./watch/screens/PickupEditorScreen";
 import DestinationScreen from "./watch/screens/DestinationScreen";
 import DriverMatchingScreen from "./watch/screens/DriverMatchingScreen";
 import TrackingScreen from "./watch/screens/TrackingScreen";
@@ -23,7 +22,6 @@ import { mockDriver, DriverInfo } from "@/types/driver";
 type Screen = 
   | "request" 
   | "carType"
-  | "pickupEditor"
   | "destination"
   | "matching" 
   | "tracking" 
@@ -49,7 +47,7 @@ const SmartWatchApp = () => {
   const [previousScreen, setPreviousScreen] = useState<Screen>("request");
 
   // Trip state
-  const [pickup, setPickup] = useState("King Saud University");
+  const [pickup, setPickup] = useState("King Saud University"); // current location
   const [destination, setDestination] = useState("CCIS Building");
   const [driver] = useState<DriverInfo>(mockDriver);
 
@@ -121,11 +119,6 @@ const SmartWatchApp = () => {
     setCurrentScreen("matching");
     toast({ title: "Finding driver...", description: `Looking for nearest ${type} driver` });
   };
-  const handleSelectPickup = (location: string) => {
-    setPickup(location);
-    setCurrentScreen("request");
-    toast({ title: "Pickup updated", description: location });
-  };
   const handleSelectDestination = (dest: string) => {
     setDestination(dest);
     setCurrentScreen("request");
@@ -150,7 +143,6 @@ const SmartWatchApp = () => {
             onRequestRide={handleRequestRide} 
             onSettings={() => setCurrentScreen("settings")} 
             onHistory={() => setCurrentScreen("history")}
-            onEditPickup={() => setCurrentScreen("pickupEditor")}
             onEditDestination={() => setCurrentScreen("destination")}
             pickup={pickup}
             destination={destination}
@@ -161,14 +153,6 @@ const SmartWatchApp = () => {
           <CarTypeScreen 
             onBack={handleBackToRequest}
             onSelectCarType={handleSelectCarType}
-          />
-        );
-      case "pickupEditor":
-        return (
-          <PickupEditorScreen 
-            onBack={handleBackToRequest}
-            onSelectLocation={handleSelectPickup}
-            currentLocation={pickup}
           />
         );
       case "destination":
@@ -228,7 +212,6 @@ const SmartWatchApp = () => {
   const screenLabels: Record<Screen, string> = { 
     request: "Home", 
     carType: "Car Type",
-    pickupEditor: "Pickup",
     destination: "Destination",
     matching: "Matching", 
     tracking: "Tracking", 
